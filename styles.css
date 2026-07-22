@@ -1,0 +1,829 @@
+/* =============================================================================
+   dnata "Today" — Geotab Add-In styles
+   ZenduONE design system (Untitled UI foundation). Everything is scoped under
+   #dnata-today so it never collides with MyGeotab's own page styles.
+   ========================================================================== */
+
+@font-face {
+  font-family: "InterDnata";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/Inter-VariableFont_opsz_wght.ttf") format("truetype-variations");
+}
+@font-face {
+  font-family: "InterDnata";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/Inter-Italic-VariableFont_opsz_wght.ttf") format("truetype-variations");
+}
+
+#dnata-today {
+  /* ── tokens ─────────────────────────────────────────────────────────── */
+  --gray-25:#FCFCFD; --gray-50:#F9FAFB; --gray-100:#F2F4F7; --gray-200:#EAECF0;
+  --gray-300:#D0D5DD; --gray-400:#98A2B3; --gray-500:#667085; --gray-600:#475467;
+  --gray-700:#344054; --gray-800:#1D2939; --gray-900:#101828; --gray-950:#0C111D;
+  --primary-25:#F4FAFD; --primary-50:#E7F2FA; --primary-100:#C8E0F3; --primary-200:#99C5E8;
+  --primary-500:#1F7BC1; --primary-600:#136AB6; --primary-700:#0F5795; --primary-800:#0C4677;
+  --success-50:#ECFDF3; --success-100:#D1FADF; --success-200:#A6F4C5; --success-500:#12B76A; --success-600:#039855; --success-700:#027A48;
+  --warning-25:#FFFCF5; --warning-50:#FFFAEB; --warning-100:#FEF0C7; --warning-400:#FDB022; --warning-500:#F79009; --warning-700:#B54708;
+  --error-50:#FEF3F2; --error-100:#FEE4E2; --error-500:#F04438; --error-600:#D92D20; --error-700:#B42318;
+
+  --radius-sm:6px; --radius-md:8px; --radius-lg:10px; --radius-xl:12px; --radius-2xl:16px; --radius-full:9999px;
+  --shadow-xs:0 1px 2px rgba(16,24,40,.05);
+  --shadow-sm:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.10);
+  --shadow-md:0 2px 4px -2px rgba(16,24,40,.06),0 4px 8px -2px rgba(16,24,40,.10);
+  --shadow-lg:0 4px 6px -2px rgba(16,24,40,.03),0 12px 16px -4px rgba(16,24,40,.08);
+  --shadow-xl:0 8px 8px -4px rgba(16,24,40,.03),0 20px 24px -4px rgba(16,24,40,.08);
+  --shadow-2xl:0 24px 48px -12px rgba(16,24,40,.18);
+  --ease-out:cubic-bezier(.4,0,.2,1);
+
+  /* ── frame ──────────────────────────────────────────────────────────── */
+  position:absolute; inset:0;
+  font-family:"InterDnata","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--gray-900);
+  background:#fff;
+  display:flex; flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+#dnata-today *, #dnata-today *::before, #dnata-today *::after { box-sizing:border-box; }
+#dnata-today button { font-family:inherit; }
+
+/* Scrollbars */
+#dnata-today .dt-scroll::-webkit-scrollbar { width:10px; }
+#dnata-today .dt-scroll::-webkit-scrollbar-thumb { background:var(--gray-300); border-radius:8px; border:2px solid #fff; }
+#dnata-today .dt-scroll::-webkit-scrollbar-track { background:transparent; }
+
+@keyframes dtPanelIn { from{transform:translateX(28px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes dtFadeIn { from{opacity:0} to{opacity:1} }
+@keyframes dtPopIn { from{transform:translateY(-6px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes dtToastIn { from{transform:translateY(12px);opacity:0} to{transform:translateY(0);opacity:1} }
+
+/* ── Top navigation ──────────────────────────────────────────────────── */
+#dnata-today .dt-header {
+  height:60px; flex-shrink:0; border-bottom:1px solid var(--gray-200);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 24px; gap:16px;
+}
+#dnata-today .dt-nav { display:flex; align-items:center; gap:6px; min-width:0; overflow-x:auto; scrollbar-width:none; }
+#dnata-today .dt-nav::-webkit-scrollbar { height:0; }
+#dnata-today .dt-brand { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+#dnata-today .dt-brand-title { font-size:16px; font-weight:600; line-height:24px; color:var(--gray-900); white-space:nowrap; }
+#dnata-today .dt-brand-logo { display:block; height:24px; width:auto; }
+
+/* Management view */
+#dnata-today .dt-mgmt { padding-top:28px; }
+#dnata-today .dt-mgmt-sub { font-size:14px; color:var(--gray-500); margin:4px 0 20px; }
+#dnata-today .dt-mgmt-card { background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius-xl); padding:16px 18px; margin-bottom:16px; }
+#dnata-today .dt-mgmt-card-title { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:var(--gray-900); margin-bottom:4px; }
+#dnata-today .dt-mgmt-cap { font-size:12.5px; color:var(--gray-500); margin-bottom:12px; }
+#dnata-today .dt-mgmt-row { display:flex; align-items:center; gap:10px; padding:8px 0; border-top:1px solid var(--gray-100); }
+#dnata-today .dt-mgmt-name { font-size:14px; font-weight:500; color:var(--gray-800); }
+#dnata-today .dt-mgmt-role { font-size:12px; color:var(--gray-500); background:var(--gray-50); border:1px solid var(--gray-200); border-radius:var(--radius-full); padding:1px 8px; }
+#dnata-today .dt-mgmt-count { margin-left:auto; font-size:12.5px; color:var(--gray-500); }
+#dnata-today .dt-divider-v { width:1px; height:24px; background:var(--gray-200); margin:0 8px; flex-shrink:0; }
+#dnata-today .dt-nav-btn {
+  display:flex; align-items:center; gap:5px; flex-shrink:0; height:60px; padding:0 8px; margin:-10px 0;
+  border:none; border-top:2px solid transparent; border-bottom:2px solid transparent; background:transparent;
+  color:var(--gray-500); font-size:14px; font-weight:600; line-height:20px; cursor:pointer; white-space:nowrap;
+  transition:color .12s var(--ease-out);
+}
+#dnata-today .dt-nav-btn:hover { color:var(--gray-700); }
+#dnata-today .dt-nav-btn.is-active { color:var(--primary-600); border-bottom-color:var(--primary-600); }
+#dnata-today .dt-ask {
+  display:flex; align-items:center; gap:7px; flex-shrink:0; height:40px; padding:0 16px;
+  border:none; border-radius:var(--radius-md); background:var(--primary-600); color:#fff;
+  font-size:14px; font-weight:600; cursor:pointer; box-shadow:var(--shadow-xs); transition:background .12s var(--ease-out);
+}
+#dnata-today .dt-ask:hover { background:var(--primary-700); }
+
+/* ── Main scroll column ──────────────────────────────────────────────── */
+#dnata-today .dt-main { flex:1; min-height:0; overflow-y:auto; }
+#dnata-today .dt-container { max-width:1170px; margin:0 auto; padding:32px 24px 80px; }
+
+/* Greeting */
+#dnata-today .dt-greet-row { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; margin-bottom:20px; }
+#dnata-today .dt-h1 { font-size:30px; line-height:38px; font-weight:600; letter-spacing:-.01em; margin:0 0 12px; }
+#dnata-today .dt-digest {
+  display:flex; align-items:center; gap:10px; max-width:720px;
+  background:var(--primary-50); border:1px solid var(--primary-100); border-radius:var(--radius-lg);
+  padding:12px 14px;
+}
+#dnata-today .dt-digest-icon { flex-shrink:0; color:var(--primary-600); display:flex; }
+#dnata-today .dt-digest-text { font-size:14px; line-height:20px; color:var(--gray-700); flex:1; min-width:0; }
+#dnata-today .dt-digest-text strong { color:var(--gray-900); font-weight:600; }
+#dnata-today .dt-digest-pager { display:flex; align-items:center; gap:6px; flex-shrink:0; }
+#dnata-today .dt-digest-viewed { font-size:12px; color:var(--gray-500); white-space:nowrap; }
+#dnata-today .dt-iconbtn {
+  display:flex; align-items:center; justify-content:center; width:26px; height:26px; padding:0;
+  border:1px solid var(--gray-200); background:#fff; border-radius:var(--radius-sm); color:var(--gray-500); cursor:pointer;
+}
+#dnata-today .dt-iconbtn:hover { background:var(--gray-50); color:var(--gray-700); }
+#dnata-today .dt-digest-count { font-size:12px; color:var(--gray-600); font-weight:600; min-width:26px; text-align:center; }
+
+/* Streak chip */
+#dnata-today .dt-streak {
+  display:flex; align-items:center; gap:10px; flex-shrink:0; text-align:left;
+  background:var(--warning-25); border:1px solid var(--warning-100); border-radius:var(--radius-lg);
+  padding:10px 14px; cursor:pointer;
+}
+#dnata-today .dt-streak:hover { background:var(--warning-50); }
+#dnata-today .dt-streak-icon { color:var(--warning-500); display:flex; }
+#dnata-today .dt-streak-title { font-size:14px; font-weight:600; color:var(--warning-700); }
+#dnata-today .dt-streak-sub { font-size:12px; color:#B8823B; }
+
+/* Category tabs */
+#dnata-today .dt-tabs { display:flex; align-items:center; gap:4px; border-bottom:1px solid var(--gray-200); margin-bottom:20px; overflow-x:auto; scrollbar-width:none; }
+#dnata-today .dt-tabs::-webkit-scrollbar { height:0; }
+#dnata-today .dt-tab {
+  display:flex; align-items:center; gap:8px; flex-shrink:0; padding:12px 4px; margin-bottom:-1px;
+  border:none; border-bottom:2px solid transparent; background:transparent; cursor:pointer;
+  font-size:14px; font-weight:600; color:var(--gray-500); white-space:nowrap;
+}
+#dnata-today .dt-tab:hover { color:var(--gray-700); }
+#dnata-today .dt-tab.is-active { color:var(--primary-600); border-bottom-color:var(--primary-600); }
+#dnata-today .dt-tab-count {
+  font-size:12px; font-weight:600; line-height:18px; padding:0 8px; border-radius:var(--radius-full);
+  background:var(--gray-100); color:var(--gray-600);
+}
+#dnata-today .dt-tab.is-active .dt-tab-count { background:var(--primary-50); color:var(--primary-700); }
+#dnata-today .dt-tab-add { color:var(--gray-500); }
+#dnata-today .dt-tab-sep { width:1px; height:20px; background:var(--gray-200); margin:0 6px; flex-shrink:0; }
+
+/* Toolbar */
+#dnata-today .dt-toolbar { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+#dnata-today .dt-search { position:relative; flex:1; }
+#dnata-today .dt-search svg { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--gray-400); }
+#dnata-today .dt-search input {
+  width:100%; height:44px; padding:0 14px 0 42px; border:1px solid var(--gray-300); border-radius:var(--radius-md);
+  font-size:14px; color:var(--gray-900); background:#fff; outline:none;
+}
+#dnata-today .dt-search input::placeholder { color:var(--gray-500); }
+#dnata-today .dt-search input:focus { border-color:var(--primary-300); box-shadow:0 0 0 4px rgba(19,106,182,.14); }
+#dnata-today .dt-btn {
+  display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 16px; border-radius:var(--radius-md);
+  font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap; transition:background .12s var(--ease-out),border-color .12s;
+}
+#dnata-today .dt-btn-secondary { background:#fff; border:1px solid var(--gray-300); color:var(--gray-700); box-shadow:var(--shadow-xs); }
+#dnata-today .dt-btn-secondary:hover { background:var(--gray-50); }
+#dnata-today .dt-btn-primary { background:var(--primary-600); border:1px solid var(--primary-600); color:#fff; box-shadow:var(--shadow-xs); }
+#dnata-today .dt-btn-primary:hover { background:var(--primary-700); border-color:var(--primary-700); }
+#dnata-today .dt-btn-ghost { background:transparent; border:1px solid transparent; color:var(--gray-600); }
+#dnata-today .dt-btn-ghost:hover { background:var(--gray-100); }
+#dnata-today .dt-btn-sm { height:38px; }
+#dnata-today .dt-badge-count { background:var(--primary-600); color:#fff; font-size:12px; font-weight:600; border-radius:var(--radius-full); min-width:18px; height:18px; padding:0 5px; display:inline-flex; align-items:center; justify-content:center; }
+
+/* ── Case card ───────────────────────────────────────────────────────── */
+#dnata-today .dt-queue { display:flex; flex-direction:column; gap:12px; }
+#dnata-today .dt-card {
+  border:1px solid var(--gray-200); border-radius:var(--radius-xl); background:#fff; padding:16px 18px;
+  cursor:pointer; transition:box-shadow .15s var(--ease-out),border-color .15s;
+}
+#dnata-today .dt-card:hover { box-shadow:var(--shadow-md); border-color:var(--gray-300); }
+#dnata-today .dt-card-top { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+#dnata-today .dt-card-title { font-size:16px; font-weight:600; line-height:24px; color:var(--gray-900); }
+#dnata-today .dt-card-meta { display:flex; align-items:center; gap:10px; margin-left:auto; }
+#dnata-today .dt-pin { border:none; background:transparent; color:var(--gray-400); cursor:pointer; padding:2px; display:flex; flex-shrink:0; }
+#dnata-today .dt-pin:hover { color:var(--warning-500); }
+#dnata-today .dt-pin.is-pinned { color:var(--warning-500); }
+#dnata-today .dt-card-bot { display:flex; align-items:center; gap:16px; }
+#dnata-today .dt-primary-action {
+  display:inline-flex; align-items:center; gap:6px; flex-shrink:0; color:var(--primary-600);
+  font-size:14px; font-weight:600; background:transparent; border:none; cursor:pointer;
+}
+#dnata-today .dt-primary-action:hover { color:var(--primary-700); text-decoration:underline; }
+#dnata-today .dt-subject { display:inline-flex; align-items:center; gap:8px; flex-shrink:0; }
+#dnata-today .dt-subject-name { font-size:14px; font-weight:500; color:var(--gray-700); white-space:nowrap; }
+#dnata-today .dt-metric { font-size:14px; line-height:20px; color:var(--gray-500); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#dnata-today .dt-metric strong { color:var(--gray-900); font-weight:600; }
+#dnata-today .dt-chevron { margin-left:auto; color:var(--gray-400); flex-shrink:0; display:flex; }
+
+/* chips / pills */
+#dnata-today .dt-chip { display:inline-flex; align-items:center; gap:5px; padding:2px 9px; border-radius:var(--radius-full); background:var(--gray-100); font-size:12px; font-weight:500; color:var(--gray-700); white-space:nowrap; flex-shrink:0; }
+#dnata-today .dt-chip svg { flex-shrink:0; }
+#dnata-today .dt-time { display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--gray-500); white-space:nowrap; flex-shrink:0; }
+#dnata-today .dt-sev { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; white-space:nowrap; flex-shrink:0; }
+#dnata-today .dt-sev .dt-dot { width:7px; height:7px; border-radius:50%; }
+#dnata-today .dt-sev.sev-High { color:var(--error-600); }   #dnata-today .dt-sev.sev-High .dt-dot { background:var(--error-500); }
+#dnata-today .dt-sev.sev-Medium { color:var(--warning-700); } #dnata-today .dt-sev.sev-Medium .dt-dot { background:var(--warning-500); }
+#dnata-today .dt-sev.sev-Low { color:var(--gray-500); }      #dnata-today .dt-sev.sev-Low .dt-dot { background:var(--gray-400); }
+#dnata-today .dt-assignee { display:inline-flex; align-items:center; gap:7px; font-size:13px; color:var(--gray-600); white-space:nowrap; flex-shrink:0; }
+#dnata-today .dt-due { display:inline-flex; align-items:center; gap:5px; font-size:13px; color:var(--gray-600); white-space:nowrap; flex-shrink:0; }
+#dnata-today .dt-due.is-today { color:var(--error-600); }
+#dnata-today .dt-status { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:500; white-space:nowrap; flex-shrink:0; }
+#dnata-today .dt-status .dt-dot { width:7px; height:7px; border-radius:50%; }
+#dnata-today .dt-status.st-Open { color:var(--primary-600); } #dnata-today .dt-status.st-Open .dt-dot { background:var(--primary-500); }
+#dnata-today .dt-status.st-Inreview { color:var(--warning-700); } #dnata-today .dt-status.st-Inreview .dt-dot { background:var(--warning-500); }
+#dnata-today .dt-status.st-Resolved { color:var(--success-700); } #dnata-today .dt-status.st-Resolved .dt-dot { background:var(--success-500); }
+#dnata-today .dt-status.st-Deferred { color:var(--gray-500); } #dnata-today .dt-status.st-Deferred .dt-dot { background:var(--gray-400); }
+#dnata-today .dt-status.st-Dismissed { color:var(--gray-500); } #dnata-today .dt-status.st-Dismissed .dt-dot { background:var(--gray-400); }
+
+/* avatar / initials */
+#dnata-today .dt-avatar { width:24px; height:24px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+#dnata-today .dt-initials { width:24px; height:24px; border-radius:50%; background:var(--primary-50); color:var(--primary-700); font-size:10px; font-weight:600; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+#dnata-today .dt-more { border:none; background:transparent; color:var(--gray-400); cursor:pointer; padding:4px; border-radius:var(--radius-sm); display:flex; }
+#dnata-today .dt-more:hover { background:var(--gray-100); color:var(--gray-600); }
+
+/* Deferred / empty */
+#dnata-today .dt-deferred { margin-top:24px; border:1px solid var(--gray-200); border-radius:var(--radius-xl); overflow:hidden; }
+#dnata-today .dt-deferred-head { display:flex; align-items:center; gap:10px; padding:14px 18px; background:var(--gray-50); cursor:pointer; }
+#dnata-today .dt-deferred-head .dt-micro { color:var(--gray-600); }
+#dnata-today .dt-deferred-body { display:flex; flex-direction:column; }
+#dnata-today .dt-defrow { display:flex; align-items:center; gap:12px; padding:12px 18px; border-top:1px solid var(--gray-200); cursor:pointer; }
+#dnata-today .dt-defrow:hover { background:var(--gray-25); }
+#dnata-today .dt-defrow-title { font-size:14px; font-weight:500; color:var(--gray-800); }
+#dnata-today .dt-empty { text-align:center; padding:56px 20px; color:var(--gray-500); }
+#dnata-today .dt-empty svg { color:var(--success-500); margin-bottom:12px; }
+#dnata-today .dt-empty-title { font-size:16px; font-weight:600; color:var(--gray-800); margin-bottom:4px; }
+
+/* progress */
+#dnata-today .dt-progress-row { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+#dnata-today .dt-progress-label { font-size:13px; font-weight:600; color:var(--gray-600); white-space:nowrap; }
+#dnata-today .dt-progress-track { flex:1; height:8px; border-radius:var(--radius-full); background:var(--gray-100); overflow:hidden; }
+#dnata-today .dt-progress-fill { height:100%; background:var(--success-500); border-radius:var(--radius-full); transition:width .3s var(--ease-out); }
+
+/* micro label */
+#dnata-today .dt-micro { font-size:12px; font-weight:600; line-height:18px; letter-spacing:.04em; text-transform:uppercase; color:var(--gray-500); }
+
+/* ── Detail panel ────────────────────────────────────────────────────── */
+#dnata-today .dt-scrim { position:absolute; inset:0; background:rgba(16,24,40,.45); z-index:40; animation:dtFadeIn .15s var(--ease-out); }
+#dnata-today .dt-panel {
+  position:absolute; top:0; right:0; bottom:0; width:min(760px,94vw); background:#fff; z-index:50;
+  display:flex; flex-direction:column; box-shadow:var(--shadow-2xl); animation:dtPanelIn .2s var(--ease-out);
+}
+#dnata-today .dt-panel-head { padding:18px 24px 14px; border-bottom:1px solid var(--gray-200); flex-shrink:0; }
+#dnata-today .dt-panel-titlerow { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:10px; }
+#dnata-today .dt-panel-title { font-size:20px; font-weight:600; line-height:28px; color:var(--gray-900); }
+#dnata-today .dt-panel-tools { display:flex; align-items:center; gap:6px; flex-shrink:0; }
+#dnata-today .dt-pager { display:flex; align-items:center; gap:4px; }
+#dnata-today .dt-pager-count { font-size:13px; color:var(--gray-500); min-width:34px; text-align:center; }
+#dnata-today .dt-panel-meta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+#dnata-today .dt-panel-code { font-size:12px; font-weight:600; letter-spacing:.03em; color:var(--gray-500); }
+#dnata-today .dt-panel-dot { color:var(--gray-300); }
+
+/* status grid */
+#dnata-today .dt-statusgrid { display:flex; gap:28px; flex-wrap:wrap; padding:16px 24px; border-bottom:1px solid var(--gray-200); flex-shrink:0; }
+#dnata-today .dt-sg-cell { display:flex; flex-direction:column; gap:6px; }
+#dnata-today .dt-sg-cell .dt-micro { color:var(--gray-400); }
+#dnata-today .dt-sg-editrow { display:flex; align-items:center; gap:8px; }
+#dnata-today .dt-editbtn {
+  display:inline-flex; align-items:center; gap:6px; height:30px; padding:0 10px; border-radius:var(--radius-md);
+  border:1px solid var(--gray-300); background:#fff; font-size:13px; font-weight:600; color:var(--gray-700); cursor:pointer;
+}
+#dnata-today .dt-editbtn:hover { background:var(--gray-50); }
+#dnata-today .dt-editbtn.is-resolve { background:var(--success-50); border-color:var(--success-200); color:var(--success-700); }
+#dnata-today .dt-editbtn.is-resolve:hover { background:var(--success-100); }
+#dnata-today .dt-editbtn.is-sla { background:var(--error-50); border-color:var(--error-100); color:var(--error-700); }
+#dnata-today .dt-editbtn.is-fnol { background:var(--primary-600); border-color:var(--primary-600); color:#fff; }
+#dnata-today .dt-editbtn.is-fnol:hover { background:var(--primary-700); border-color:var(--primary-700); }
+
+/* panel body */
+#dnata-today .dt-panel-body { flex:1; min-height:0; overflow-y:auto; padding:20px 24px 40px; }
+#dnata-today .dt-section { margin-bottom:24px; }
+#dnata-today .dt-section > .dt-micro { display:block; margin-bottom:10px; }
+#dnata-today .dt-what { font-size:15px; line-height:24px; color:var(--gray-700); }
+#dnata-today .dt-entity {
+  display:inline-flex; align-items:center; gap:5px; padding:2px 8px; border-radius:var(--radius-sm);
+  background:var(--primary-50); color:var(--primary-700); font-weight:600; font-size:14px; border:none; cursor:pointer;
+}
+#dnata-today .dt-entity:hover { background:var(--primary-100); }
+
+/* evidence filmstrip */
+#dnata-today .dt-evhead { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+#dnata-today .dt-clips { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+#dnata-today .dt-clip { border:none; background:transparent; padding:0; cursor:pointer; text-align:left; }
+#dnata-today .dt-clip-thumb {
+  position:relative; aspect-ratio:16/10; border-radius:var(--radius-md); overflow:hidden;
+  background:linear-gradient(135deg,var(--gray-700),var(--gray-900)); display:flex; align-items:center; justify-content:center; margin-bottom:6px;
+  background-size:cover; background-position:center;
+}
+#dnata-today .dt-clip-play { width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.9); color:#101828; display:flex; align-items:center; justify-content:center; }
+#dnata-today .dt-clip-dur { position:absolute; right:6px; bottom:6px; background:rgba(16,24,40,.8); color:#fff; font-size:11px; font-weight:600; padding:1px 5px; border-radius:4px; }
+#dnata-today .dt-clip-place { font-size:12px; font-weight:600; color:var(--gray-800); }
+#dnata-today .dt-clip-time { font-size:11px; color:var(--gray-500); }
+/* (inline clip expansion removed — clips open the full-screen Evidence Drawer) */
+
+/* context bullets */
+#dnata-today .dt-context { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+#dnata-today .dt-context li { position:relative; padding-left:20px; font-size:14px; line-height:20px; color:var(--gray-700); }
+#dnata-today .dt-context li::before { content:""; position:absolute; left:4px; top:8px; width:6px; height:6px; border-radius:50%; background:var(--gray-300); }
+
+/* prompts */
+#dnata-today .dt-prompts { display:flex; flex-wrap:wrap; gap:8px; }
+#dnata-today .dt-prompt { padding:8px 12px; border:1px solid var(--gray-200); border-radius:var(--radius-full); background:var(--gray-25); font-size:13px; color:var(--gray-700); cursor:pointer; }
+#dnata-today .dt-prompt:hover { background:var(--primary-50); border-color:var(--primary-200); color:var(--primary-700); }
+
+/* recommended action block */
+#dnata-today .dt-reco { background:var(--primary-50); border:1px solid var(--primary-100); border-radius:var(--radius-xl); padding:18px; }
+#dnata-today .dt-reco-head { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+#dnata-today .dt-reco-head .dt-micro { color:var(--primary-700); }
+#dnata-today .dt-reco-text { font-size:14px; line-height:21px; color:var(--gray-700); margin-bottom:14px; }
+#dnata-today .dt-reco-primary {
+  width:100%; height:44px; border:none; border-radius:var(--radius-md); background:var(--primary-600); color:#fff;
+  font-size:14px; font-weight:600; cursor:pointer; box-shadow:var(--shadow-xs);
+}
+#dnata-today .dt-reco-primary:hover { background:var(--primary-700); }
+#dnata-today .dt-reco-others { margin-top:14px; }
+#dnata-today .dt-reco-others .dt-micro { color:var(--gray-500); display:block; margin-bottom:8px; }
+#dnata-today .dt-reco-otherbtns { display:flex; flex-direction:column; gap:8px; }
+#dnata-today .dt-otherbtn {
+  display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid var(--gray-200); border-radius:var(--radius-md);
+  background:#fff; cursor:pointer; text-align:left;
+}
+#dnata-today .dt-otherbtn:hover { background:var(--gray-50); border-color:var(--gray-300); }
+#dnata-today .dt-otherbtn-wrap { display:flex; gap:8px; flex-wrap:wrap; }
+#dnata-today .dt-otherbtn.inline { flex:1; min-width:180px; }
+#dnata-today .dt-otherbtn svg { color:var(--gray-500); flex-shrink:0; }
+#dnata-today .dt-otherbtn-title { font-size:13px; font-weight:600; color:var(--gray-800); }
+#dnata-today .dt-otherbtn-sub { font-size:12px; color:var(--gray-500); }
+#dnata-today .dt-reco-tertiary { display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
+#dnata-today .dt-linkbtn { background:none; border:none; color:var(--gray-500); font-size:13px; font-weight:600; cursor:pointer; padding:6px 8px; border-radius:var(--radius-sm); }
+#dnata-today .dt-linkbtn:hover { background:var(--gray-100); color:var(--gray-700); }
+#dnata-today .dt-linkbtn.danger:hover { background:var(--error-50); color:var(--error-700); }
+
+/* notes & activity */
+#dnata-today .dt-notes-head .dt-micro { display:block; margin-bottom:2px; }
+#dnata-today .dt-notes-sub { font-size:12px; color:var(--gray-500); margin-bottom:12px; }
+#dnata-today .dt-note-compose { display:flex; gap:8px; margin-bottom:14px; }
+#dnata-today .dt-note-compose textarea {
+  flex:1; min-height:40px; resize:vertical; padding:9px 12px; border:1px solid var(--gray-300); border-radius:var(--radius-md);
+  font-family:inherit; font-size:14px; color:var(--gray-900); outline:none;
+}
+#dnata-today .dt-note-compose textarea:focus { border-color:var(--primary-300); box-shadow:0 0 0 4px rgba(19,106,182,.14); }
+#dnata-today .dt-seg { display:inline-flex; background:var(--gray-100); border-radius:var(--radius-md); padding:3px; gap:2px; margin-bottom:14px; }
+#dnata-today .dt-seg button { border:none; background:transparent; padding:5px 12px; border-radius:var(--radius-sm); font-size:13px; font-weight:600; color:var(--gray-500); cursor:pointer; }
+#dnata-today .dt-seg button.is-active { background:#fff; color:var(--gray-800); box-shadow:var(--shadow-xs); }
+#dnata-today .dt-timeline { display:flex; flex-direction:column; }
+#dnata-today .dt-tl { display:flex; gap:12px; padding-bottom:16px; position:relative; }
+#dnata-today .dt-tl:not(:last-child)::before { content:""; position:absolute; left:11px; top:24px; bottom:0; width:2px; background:var(--gray-200); }
+#dnata-today .dt-tl-dot { width:24px; height:24px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:var(--gray-100); color:var(--gray-500); z-index:1; }
+#dnata-today .dt-tl-dot.ai { background:var(--primary-50); color:var(--primary-600); }
+#dnata-today .dt-tl-dot.note { background:var(--warning-50); color:var(--warning-700); }
+#dnata-today .dt-tl-text { font-size:14px; color:var(--gray-800); }
+#dnata-today .dt-tl-meta { font-size:12px; color:var(--gray-500); margin-top:2px; }
+
+/* ── Popover ─────────────────────────────────────────────────────────── */
+#dnata-today .dt-pop {
+  position:absolute; z-index:60; background:#fff; border:1px solid var(--gray-200); border-radius:var(--radius-xl);
+  box-shadow:var(--shadow-xl); padding:8px; min-width:200px; animation:dtPopIn .12s var(--ease-out);
+}
+#dnata-today .dt-pop-wide { min-width:300px; padding:16px; }
+#dnata-today .dt-menu-item { display:flex; align-items:center; gap:10px; width:100%; padding:9px 10px; border:none; background:transparent; border-radius:var(--radius-md); font-size:14px; color:var(--gray-700); cursor:pointer; text-align:left; }
+#dnata-today .dt-menu-item:hover { background:var(--gray-50); }
+#dnata-today .dt-menu-item.danger { color:var(--error-600); }
+#dnata-today .dt-menu-item.danger:hover { background:var(--error-50); }
+#dnata-today .dt-menu-item.is-selected { background:var(--primary-50); color:var(--primary-700); }
+#dnata-today .dt-menu-item svg { color:var(--gray-400); flex-shrink:0; }
+#dnata-today .dt-pop-title { font-size:13px; font-weight:600; color:var(--gray-800); margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
+#dnata-today .dt-facet { margin-bottom:14px; }
+#dnata-today .dt-facet-label { font-size:12px; font-weight:600; color:var(--gray-500); text-transform:uppercase; letter-spacing:.03em; margin-bottom:6px; }
+#dnata-today .dt-check { display:flex; align-items:center; gap:9px; padding:5px 4px; font-size:14px; color:var(--gray-700); cursor:pointer; }
+#dnata-today .dt-check input { width:16px; height:16px; accent-color:var(--primary-600); }
+#dnata-today .dt-pop-foot { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--gray-200); padding-top:12px; margin-top:4px; }
+
+/* streak popover viz */
+#dnata-today .dt-streakgrid { display:flex; gap:5px; margin:8px 0 14px; }
+#dnata-today .dt-streakcol { flex:1; display:flex; flex-direction:column; align-items:center; gap:5px; }
+#dnata-today .dt-streakcell { width:100%; height:26px; border-radius:var(--radius-sm); background:var(--gray-100); }
+#dnata-today .dt-streakcell.on { background:var(--success-500); }
+#dnata-today .dt-streakcell.today { background:var(--warning-400); }
+#dnata-today .dt-streak-daylabel { font-size:9px; color:var(--gray-400); }
+#dnata-today .dt-streakstats { display:flex; gap:20px; border-top:1px solid var(--gray-200); padding-top:12px; }
+#dnata-today .dt-streakstat-num { font-size:20px; font-weight:600; color:var(--gray-900); }
+#dnata-today .dt-streakstat-label { font-size:12px; color:var(--gray-500); }
+
+/* demo controls card (Management, demo only) */
+#dnata-today .dt-demo-card { max-width:560px; margin:8px auto 0; border:1px dashed var(--gray-300); border-radius:var(--radius-xl); padding:16px 18px; text-align:left; }
+#dnata-today .dt-demo-head { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:var(--gray-800); margin-bottom:8px; }
+#dnata-today .dt-demo-head svg { color:var(--gray-500); }
+#dnata-today .dt-demo-tag { margin-left:auto; font-size:11px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; background:var(--warning-50); color:var(--warning-700); border:1px solid var(--warning-100); border-radius:var(--radius-full); padding:2px 9px; }
+#dnata-today .dt-demo-card p { margin:0 0 12px; font-size:13px; line-height:19px; color:var(--gray-600); }
+
+/* generic placeholder view */
+#dnata-today .dt-placeholder { text-align:center; padding:80px 24px; color:var(--gray-500); }
+#dnata-today .dt-placeholder svg { color:var(--gray-300); margin-bottom:16px; }
+#dnata-today .dt-placeholder-title { font-size:18px; font-weight:600; color:var(--gray-800); margin-bottom:6px; }
+
+/* live badge (Geotab-connected indicator) */
+#dnata-today .dt-live { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--gray-500); margin-left:10px; }
+#dnata-today .dt-live .dt-dot { width:7px; height:7px; border-radius:50%; background:var(--gray-300); }
+#dnata-today .dt-live.is-connected .dt-dot { background:var(--success-500); }
+
+/* toast */
+#dnata-today .dt-toasts { position:absolute; right:20px; bottom:20px; z-index:80; display:flex; flex-direction:column; gap:10px; }
+#dnata-today .dt-toast {
+  display:flex; align-items:center; gap:10px; background:var(--gray-900); color:#fff; padding:12px 16px;
+  border-radius:var(--radius-lg); font-size:14px; box-shadow:var(--shadow-lg); animation:dtToastIn .18s var(--ease-out); max-width:360px;
+}
+#dnata-today .dt-toast svg { color:var(--success-400,#32D583); flex-shrink:0; }
+
+/* ── Accident case: pipeline / welfare call / telematics / FNOL ─────────── */
+@keyframes dtPulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+#dnata-today .dt-chip-acc { background:var(--error-50); color:var(--error-700); }
+
+/* status pipeline */
+#dnata-today .dt-pipe { display:flex; align-items:center; gap:4px; overflow-x:auto; padding:2px 0 8px; scrollbar-width:none; }
+#dnata-today .dt-pipe::-webkit-scrollbar { height:0; }
+#dnata-today .dt-pipe-step {
+  display:inline-flex; align-items:center; gap:5px; flex-shrink:0; border:1px solid var(--gray-200);
+  background:#fff; border-radius:var(--radius-full); padding:4px 10px; font-size:12px; font-weight:600;
+  color:var(--gray-500); cursor:pointer; white-space:nowrap;
+}
+#dnata-today .dt-pipe-step:hover { border-color:var(--gray-300); color:var(--gray-700); }
+#dnata-today .dt-pipe-step.done { color:var(--success-700); border-color:var(--success-200); background:var(--success-50); }
+#dnata-today .dt-pipe-step.current { color:#fff; background:var(--primary-600); border-color:var(--primary-600); }
+#dnata-today .dt-pipe-sep { color:var(--gray-300); flex-shrink:0; display:flex; }
+
+/* welfare block */
+#dnata-today .dt-welfare { border:1px solid var(--error-100); background:var(--error-50); border-radius:var(--radius-xl); padding:16px; }
+#dnata-today .dt-welfare-title { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:var(--error-700); margin-bottom:6px; }
+#dnata-today .dt-welfare p { font-size:13px; line-height:20px; color:var(--gray-700); margin:0 0 12px; }
+#dnata-today .dt-welfare-btns { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+#dnata-today .dt-welfare-note { font-size:12px; color:var(--gray-500); margin-top:10px; }
+
+/* welfare call record */
+#dnata-today .dt-callrec { border:1px solid var(--gray-200); border-radius:var(--radius-xl); overflow:hidden; }
+#dnata-today .dt-callrec-head { display:flex; align-items:center; gap:8px; padding:12px 16px; background:var(--success-50); color:var(--success-700); font-size:14px; font-weight:600; }
+#dnata-today .dt-callrec-body { padding:14px 16px; display:flex; flex-direction:column; gap:10px; }
+#dnata-today .dt-anschips { display:flex; gap:8px; flex-wrap:wrap; }
+#dnata-today .dt-anschip { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:var(--radius-full); background:var(--gray-100); font-size:12px; font-weight:500; color:var(--gray-700); }
+#dnata-today .dt-anschip strong { color:var(--gray-900); font-weight:600; }
+
+/* secure link chip */
+#dnata-today .dt-securelink {
+  display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:var(--radius-full);
+  background:var(--primary-50); border:1px solid var(--primary-100); color:var(--primary-700);
+  font-size:12px; font-weight:600; cursor:pointer;
+}
+#dnata-today .dt-securelink:hover { background:var(--primary-100); }
+
+/* transcript */
+#dnata-today .dt-transcript { border:1px solid var(--gray-200); border-radius:var(--radius-md); padding:12px 14px; max-height:190px; overflow-y:auto; display:flex; flex-direction:column; gap:8px; background:var(--gray-25); }
+#dnata-today .dt-tr-line { font-size:13px; line-height:19px; color:var(--gray-700); }
+#dnata-today .dt-tr-line strong { color:var(--gray-900); font-weight:600; }
+
+/* telematics graphs */
+#dnata-today .dt-graphs { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+#dnata-today .dt-graph { border:1px solid var(--gray-200); border-radius:var(--radius-md); padding:12px 12px 6px; }
+#dnata-today .dt-graph-title { display:flex; justify-content:space-between; font-size:12px; font-weight:600; color:var(--gray-600); margin-bottom:4px; }
+#dnata-today .dt-graph-title span:last-child { color:var(--gray-400); font-weight:500; }
+#dnata-today .dt-graph-caption { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--gray-500); margin-top:10px; }
+
+/* modal */
+#dnata-today .dt-modal-scrim { position:absolute; inset:0; background:rgba(16,24,40,.55); z-index:70; animation:dtFadeIn .15s var(--ease-out); }
+#dnata-today .dt-modal {
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:min(720px,94vw); max-height:92%;
+  background:#fff; border-radius:var(--radius-xl); box-shadow:var(--shadow-2xl); z-index:71;
+  display:flex; flex-direction:column; overflow:hidden; animation:dtPopIn .16s var(--ease-out);
+}
+#dnata-today .dt-modal-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 20px; border-bottom:1px solid var(--gray-200); flex-shrink:0; }
+#dnata-today .dt-modal-title { display:flex; align-items:center; gap:8px; font-size:16px; font-weight:600; color:var(--gray-900); }
+#dnata-today .dt-modal-body { padding:20px; overflow-y:auto; }
+#dnata-today .dt-modal-foot { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:14px 20px; border-top:1px solid var(--gray-200); flex-shrink:0; background:var(--gray-25); }
+
+/* whisper card */
+#dnata-today .dt-whisper { background:var(--primary-50); border:1px solid var(--primary-100); border-radius:var(--radius-xl); padding:16px; margin-bottom:16px; }
+#dnata-today .dt-whisper-title { display:flex; align-items:center; gap:7px; margin-bottom:12px; }
+#dnata-today .dt-kv { display:grid; grid-template-columns:150px 1fr; gap:7px 14px; font-size:13px; }
+#dnata-today .dt-kv .k { color:var(--gray-500); font-weight:600; }
+#dnata-today .dt-kv .v { color:var(--gray-800); }
+#dnata-today .dt-askfor { list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; gap:6px; }
+#dnata-today .dt-askfor li { display:flex; gap:8px; font-size:13px; color:var(--gray-700); align-items:flex-start; }
+#dnata-today .dt-askfor li svg { color:var(--primary-600); flex-shrink:0; margin-top:2px; }
+#dnata-today .dt-attempts { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+#dnata-today .dt-attempt { display:inline-flex; align-items:center; gap:5px; padding:3px 9px; border-radius:var(--radius-full); font-size:12px; font-weight:500; background:var(--gray-100); color:var(--gray-600); }
+#dnata-today .dt-attempt.ok { background:var(--success-50); color:var(--success-700); }
+
+/* live call */
+#dnata-today .dt-call-video { position:relative; aspect-ratio:16/7; border-radius:var(--radius-xl); overflow:hidden; background:var(--gray-900); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+#dnata-today .dt-rec { position:absolute; left:12px; top:10px; display:inline-flex; align-items:center; gap:6px; background:rgba(16,24,40,.8); color:#fff; font-size:12px; font-weight:600; border-radius:var(--radius-full); padding:4px 10px; }
+#dnata-today .dt-rec .dt-dot { width:8px; height:8px; border-radius:50%; background:var(--error-500); animation:dtPulse 1.4s infinite; }
+#dnata-today .dt-call-timer { position:absolute; right:12px; top:10px; background:rgba(16,24,40,.8); color:#fff; font-size:12px; font-weight:600; border-radius:var(--radius-full); padding:4px 10px; }
+#dnata-today .dt-call-label { position:absolute; left:12px; bottom:10px; color:#fff; font-size:12px; font-weight:600; text-shadow:0 1px 4px rgba(16,24,40,.6); }
+#dnata-today .dt-recnotice { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--gray-600); margin-bottom:12px; }
+#dnata-today .dt-ans-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px solid var(--gray-100); }
+#dnata-today .dt-ans-q { font-size:13px; font-weight:500; color:var(--gray-700); }
+#dnata-today .dt-ansbtns { display:inline-flex; background:var(--gray-100); border-radius:var(--radius-md); padding:2px; gap:2px; flex-shrink:0; }
+#dnata-today .dt-ansbtns button { border:none; background:transparent; border-radius:var(--radius-sm); padding:4px 10px; font-size:12px; font-weight:600; color:var(--gray-500); cursor:pointer; }
+#dnata-today .dt-ansbtns button.on { background:#fff; color:var(--gray-800); box-shadow:var(--shadow-xs); }
+
+/* attach confirmation */
+#dnata-today .dt-attachlist { display:flex; flex-direction:column; gap:10px; }
+#dnata-today .dt-attachrow { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--gray-700); }
+#dnata-today .dt-attachrow svg { color:var(--success-500); flex-shrink:0; }
+
+/* FNOL cta + form + record */
+#dnata-today .dt-fnolcta { border:1px dashed var(--gray-300); border-radius:var(--radius-xl); padding:16px; display:flex; align-items:center; gap:14px; }
+#dnata-today .dt-fnolcta-icon { width:40px; height:40px; border-radius:var(--radius-md); background:var(--primary-50); color:var(--primary-600); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+#dnata-today .dt-fnolcta-title { font-size:14px; font-weight:600; color:var(--gray-900); }
+#dnata-today .dt-fnolcta-sub { font-size:12px; color:var(--gray-500); margin-top:2px; }
+#dnata-today .dt-form-sec { margin-bottom:18px; }
+#dnata-today .dt-form-sec > .dt-micro { display:block; margin-bottom:8px; }
+#dnata-today .dt-form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+#dnata-today .dt-field label { display:block; font-size:12px; font-weight:600; color:var(--gray-600); margin-bottom:4px; }
+#dnata-today .dt-field input, #dnata-today .dt-field textarea {
+  width:100%; padding:8px 10px; border:1px solid var(--gray-300); border-radius:var(--radius-md);
+  font-family:inherit; font-size:13px; color:var(--gray-900); outline:none; background:#fff;
+}
+#dnata-today .dt-field textarea { resize:vertical; min-height:56px; }
+#dnata-today .dt-field select {
+  width:100%; padding:8px 10px; border:1px solid var(--gray-300); border-radius:var(--radius-md);
+  font-family:inherit; font-size:13px; color:var(--gray-900); background:#fff; outline:none;
+}
+#dnata-today .dt-field select:focus { border-color:var(--primary-300); box-shadow:0 0 0 4px rgba(19,106,182,.14); }
+#dnata-today .dt-field input:focus, #dnata-today .dt-field textarea:focus { border-color:var(--primary-300); box-shadow:0 0 0 4px rgba(19,106,182,.14); }
+#dnata-today .dt-field.warn input, #dnata-today .dt-field.warn textarea { border-color:var(--warning-400); background:var(--warning-25); }
+#dnata-today .dt-field .dt-src { font-size:11px; color:var(--primary-700); font-weight:500; margin-left:6px; }
+#dnata-today .dt-field.wide { grid-column:1 / -1; }
+#dnata-today .dt-evd-row { display:flex; align-items:center; gap:9px; padding:6px 2px; font-size:13px; color:var(--gray-700); cursor:pointer; }
+#dnata-today .dt-evd-row input { width:16px; height:16px; accent-color:var(--primary-600); flex-shrink:0; }
+#dnata-today .dt-fnolrec { border:1px solid var(--success-200); border-radius:var(--radius-xl); overflow:hidden; }
+
+/* FNOL — structured attachments, uploads and recipients */
+#dnata-today .dt-evd-group { font-size:11px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--gray-500); margin:12px 0 2px; }
+#dnata-today .dt-evd-group:first-child { margin-top:0; }
+#dnata-today .dt-doc-row { display:flex; align-items:center; flex-wrap:wrap; gap:6px 10px; padding:4px 2px; }
+#dnata-today .dt-doc-cat { flex:1; min-width:180px; font-size:13px; color:var(--gray-700); }
+#dnata-today .dt-doc-upload {
+  display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600;
+  color:var(--primary-700); border:1px solid var(--gray-300); border-radius:var(--radius-md);
+  padding:3px 10px; cursor:pointer; background:#fff; flex-shrink:0;
+}
+#dnata-today .dt-doc-upload:hover { background:var(--gray-50); border-color:var(--gray-400); }
+#dnata-today .dt-doc-files { flex-basis:100%; display:flex; flex-wrap:wrap; gap:6px; }
+#dnata-today .dt-doc-file {
+  display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--gray-700);
+  background:var(--gray-50); border:1px solid var(--gray-200); border-radius:999px; padding:2px 6px 2px 9px;
+}
+#dnata-today .dt-doc-file svg { color:var(--gray-500); flex-shrink:0; }
+#dnata-today .dt-doc-rm {
+  display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px;
+  border:none; background:transparent; color:var(--gray-400); cursor:pointer; border-radius:999px; padding:0; flex-shrink:0;
+}
+#dnata-today .dt-doc-rm:hover { color:var(--error-600); background:var(--error-50); }
+#dnata-today .dt-recip-group { font-size:12px; font-weight:600; color:var(--gray-600); margin:12px 0 4px; padding-top:10px; border-top:1px solid var(--gray-100); }
+#dnata-today .dt-recip-group:first-child { margin-top:0; padding-top:0; border-top:none; }
+#dnata-today .dt-recip-row { display:flex; align-items:center; gap:9px; padding:3px 2px; font-size:13px; color:var(--gray-700); }
+#dnata-today .dt-recip-row input[type=checkbox] { width:16px; height:16px; accent-color:var(--primary-600); flex-shrink:0; }
+#dnata-today .dt-recip-label { flex:0 0 150px; min-width:0; }
+#dnata-today .dt-recip-input {
+  flex:1; min-width:140px; height:30px; padding:0 9px; border:1px solid var(--gray-300); border-radius:var(--radius-md);
+  font-family:inherit; font-size:13px; color:var(--gray-900); background:#fff; outline:none;
+}
+#dnata-today .dt-recip-input:focus { border-color:var(--primary-300); box-shadow:0 0 0 4px rgba(19,106,182,.14); }
+#dnata-today .dt-missing { color:var(--warning-700); font-size:12.5px; }
+
+/* "Why this event was flagged" — collision signal breakdown */
+#dnata-today .dt-why { display:flex; flex-direction:column; gap:10px; }
+#dnata-today .dt-why-group { border:1px solid var(--gray-200); border-radius:var(--radius-md); padding:12px 14px; }
+#dnata-today .dt-why-group.is-counter { background:var(--warning-25); border-color:var(--warning-100); }
+#dnata-today .dt-why-label { display:block; font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--gray-500); margin-bottom:6px; }
+#dnata-today .dt-why-group.is-counter .dt-why-label { color:var(--warning-700); }
+#dnata-today .dt-why-row { display:flex; align-items:flex-start; gap:9px; padding:5px 0; font-size:13px; line-height:19px; color:var(--gray-700); }
+#dnata-today .dt-why-row > svg { flex-shrink:0; margin-top:2px; color:var(--success-500); }
+#dnata-today .dt-why-group.is-counter .dt-why-row > svg { color:var(--warning-500); }
+#dnata-today .dt-why-text { flex:1; min-width:0; }
+#dnata-today .dt-why-src { flex-shrink:0; font-size:11px; font-weight:600; border-radius:var(--radius-full); padding:1px 8px; white-space:nowrap; margin-top:1px; }
+#dnata-today .dt-why-src.src-recorded { background:var(--gray-100); color:var(--gray-600); }
+#dnata-today .dt-why-src.src-derived { background:var(--primary-50); color:var(--primary-700); }
+#dnata-today .dt-why-src.src-confirmed { background:var(--success-50); color:var(--success-700); }
+#dnata-today .dt-why-src.src-illustrative { background:var(--warning-50); color:var(--warning-700); }
+#dnata-today .dt-why-src.src-reported { background:var(--warning-50); color:var(--warning-700); }
+#dnata-today .dt-why-src.src-demoTelemetry { background:var(--success-50); color:var(--success-700); }
+#dnata-today .dt-why-src.src-notVerified { background:var(--error-50); color:var(--error-700); }
+#dnata-today .dt-why-src.src-undetermined { background:var(--gray-100); color:var(--gray-600); }
+#dnata-today .dt-why-src.src-unavailable { background:var(--gray-100); color:var(--gray-500); }
+#dnata-today .dt-why-src.src-workflow { background:var(--primary-50); color:var(--primary-700); }
+#dnata-today .dt-why-src.src-unknown { background:var(--gray-100); color:var(--gray-600); }
+#dnata-today .dt-why-empty { font-size:13px; color:var(--gray-500); padding:2px 0; }
+
+/* investigation-priority summary (Step 2) */
+#dnata-today .dt-why-priority { border:1px solid var(--gray-200); border-left-width:3px; border-radius:var(--radius-md); padding:12px 14px; }
+#dnata-today .dt-why-priority.lvl-high { border-left-color:var(--error-500); }
+#dnata-today .dt-why-priority.lvl-review { border-left-color:var(--warning-500); }
+#dnata-today .dt-why-priority.lvl-fp { border-left-color:var(--gray-400); }
+#dnata-today .dt-why-pri-top { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+#dnata-today .dt-why-score { font-size:13px; font-weight:600; color:var(--gray-700); }
+#dnata-today .dt-why-level { display:flex; align-items:center; gap:7px; font-size:14px; font-weight:600; margin-top:7px; }
+#dnata-today .dt-why-level .dt-dot { width:8px; height:8px; border-radius:50%; }
+#dnata-today .dt-why-priority.lvl-high .dt-why-level { color:var(--error-700); }
+#dnata-today .dt-why-priority.lvl-high .dt-why-level .dt-dot { background:var(--error-500); }
+#dnata-today .dt-why-priority.lvl-review .dt-why-level { color:var(--warning-700); }
+#dnata-today .dt-why-priority.lvl-review .dt-why-level .dt-dot { background:var(--warning-500); }
+#dnata-today .dt-why-priority.lvl-fp .dt-why-level { color:var(--gray-600); }
+#dnata-today .dt-why-priority.lvl-fp .dt-why-level .dt-dot { background:var(--gray-400); }
+#dnata-today .dt-why-disclaimer { font-size:12px; color:var(--gray-500); margin-top:4px; }
+#dnata-today .dt-why-assessrow { display:flex; align-items:baseline; gap:10px; justify-content:space-between; font-size:12.5px; line-height:17px; margin-top:6px; }
+#dnata-today .dt-why-assessrow .k { color:var(--gray-500); font-weight:500; }
+#dnata-today .dt-why-assessrow .v { color:var(--gray-800); font-weight:600; text-align:right; }
+#dnata-today .dt-why-calcbtn { display:inline-flex; align-items:center; gap:5px; margin-top:8px; padding:4px 6px; font-size:13px; }
+#dnata-today .dt-why-calc { margin-top:8px; border-top:1px solid var(--gray-100); padding-top:6px; }
+#dnata-today .dt-why-calcrow { display:flex; align-items:center; gap:10px; padding:4px 0; font-size:13px; color:var(--gray-700); }
+#dnata-today .dt-why-calcrow .dt-why-text { flex:1; min-width:0; }
+#dnata-today .dt-why-pts { font-weight:600; min-width:34px; text-align:right; }
+#dnata-today .dt-why-pts.pos { color:var(--success-700); }
+#dnata-today .dt-why-pts.neg { color:var(--error-700); }
+
+/* asset-class peer comparison (Step 3) */
+#dnata-today .dt-peer { border:1px solid var(--gray-200); border-radius:var(--radius-md); padding:12px 14px; display:flex; flex-direction:column; gap:10px; }
+#dnata-today .dt-peer-sub { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:13px; color:var(--gray-700); }
+#dnata-today .dt-peer-sub strong { color:var(--gray-900); }
+#dnata-today .dt-peer-dot { color:var(--gray-300); }
+#dnata-today .dt-peer-class { display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:13px; color:var(--gray-700); background:var(--gray-50); border:1px solid var(--gray-100); border-radius:var(--radius-sm); padding:7px 10px; }
+#dnata-today .dt-peer-class strong { color:var(--gray-900); }
+#dnata-today .dt-peer-note { font-size:12px; color:var(--gray-500); margin-top:-4px; }
+#dnata-today .dt-peer-row { border-top:1px solid var(--gray-100); padding-top:9px; }
+#dnata-today .dt-peer-name { display:block; font-size:13px; font-weight:600; color:var(--gray-800); }
+#dnata-today .dt-peer-bar { position:relative; height:6px; border-radius:4px; background:var(--gray-100); margin:9px 4px 7px; }
+#dnata-today .dt-peer-mark { position:absolute; top:-2px; width:2px; height:10px; border-radius:1px; background:var(--gray-400); }
+#dnata-today .dt-peer-mark.p95 { background:var(--gray-600); }
+#dnata-today .dt-peer-event { position:absolute; top:-2px; width:10px; height:10px; margin-left:-5px; border-radius:50%; background:var(--primary-600); border:2px solid #fff; box-shadow:var(--shadow-xs); }
+#dnata-today .dt-peer-vals { display:flex; flex-wrap:wrap; gap:6px 14px; font-size:13px; color:var(--gray-600); margin-top:4px; }
+#dnata-today .dt-peer-kv { display:inline-flex; align-items:center; gap:5px; white-space:nowrap; }
+#dnata-today .dt-peer-kv strong { color:var(--gray-900); font-weight:600; }
+#dnata-today .dt-peer-unavail { font-size:13px; color:var(--gray-500); font-style:italic; }
+
+/* investigation actions + audit history (Step 5) */
+#dnata-today .dt-inv-actions { display:flex; flex-wrap:wrap; gap:8px; }
+#dnata-today .dt-inv-danger { color:var(--error-700); border-color:var(--error-100); }
+#dnata-today .dt-inv-danger:hover { background:var(--error-50); }
+#dnata-today .dt-btn-danger { background:var(--error-600); border:1px solid var(--error-600); color:#fff; box-shadow:var(--shadow-xs); display:inline-flex; align-items:center; gap:8px; border-radius:var(--radius-md); font-size:14px; font-weight:600; padding:0 16px; cursor:pointer; }
+#dnata-today .dt-btn-danger:hover { background:var(--error-700); border-color:var(--error-700); }
+#dnata-today .dt-inv-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+#dnata-today .dt-inv-badge { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:var(--radius-full); font-size:12px; font-weight:600; }
+#dnata-today .dt-inv-badge.fp { background:var(--gray-100); color:var(--gray-600); }
+#dnata-today .dt-inv-badge.esc { background:var(--warning-50); color:var(--warning-700); border:1px solid var(--warning-100); }
+#dnata-today .dt-inv-note { font-size:13px; color:var(--gray-500); }
+#dnata-today .dt-inv-warn { display:flex; gap:8px; align-items:flex-start; font-size:13px; line-height:19px; color:var(--warning-700); background:var(--warning-25); border:1px solid var(--warning-100); border-radius:var(--radius-md); padding:9px 11px; margin-top:12px; }
+#dnata-today .dt-inv-warn svg { flex-shrink:0; margin-top:2px; }
+#dnata-today .dt-field.warn select { border-color:var(--warning-400); background:var(--warning-25); }
+#dnata-today .dt-audit { border:1px solid var(--gray-200); border-radius:var(--radius-md); padding:10px 12px; margin-bottom:8px; }
+#dnata-today .dt-audit-head { display:flex; justify-content:space-between; gap:10px; font-size:12px; color:var(--gray-500); margin-bottom:6px; flex-wrap:wrap; }
+#dnata-today .dt-audit-head strong { font-family:var(--font-mono, ui-monospace, Menlo, monospace); font-size:12px; color:var(--gray-800); background:var(--gray-100); padding:1px 7px; border-radius:var(--radius-sm); }
+#dnata-today .dt-audit-grid { display:grid; grid-template-columns:120px 1fr; gap:3px 10px; font-size:12.5px; color:var(--gray-700); }
+#dnata-today .dt-audit-grid .k { color:var(--gray-500); font-weight:600; }
+
+/* map + documents/photos */
+#dnata-today .dt-map { border:1px solid var(--gray-200); border-radius:var(--radius-md); overflow:hidden; }
+#dnata-today .dt-map svg { display:block; }
+#dnata-today .dt-docrow { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--gray-100); }
+#dnata-today .dt-docrow:last-of-type { border-bottom:none; }
+#dnata-today .dt-docrow > svg { color:var(--gray-500); flex-shrink:0; }
+#dnata-today .dt-docrow-name { display:block; font-size:13px; font-weight:600; color:var(--gray-800); }
+#dnata-today .dt-docrow-meta { font-size:12px; color:var(--gray-500); }
+#dnata-today .dt-fnolrec-head { background:var(--success-50); padding:12px 16px; display:flex; gap:8px; align-items:center; color:var(--success-700); font-weight:600; font-size:14px; }
+#dnata-today .dt-fnolrec-body { padding:14px 16px; display:flex; flex-direction:column; gap:9px; font-size:13px; }
+#dnata-today .dt-frow { display:grid; grid-template-columns:170px 1fr; gap:10px; align-items:start; }
+#dnata-today .dt-frow .k { color:var(--gray-500); font-weight:600; }
+#dnata-today .dt-frow .v { color:var(--gray-800); }
+
+/* ── Evidence Drawer (dark viewer docked left of the case drawer) ───────── */
+@keyframes dtEdIn { from { transform:translateX(-24px); opacity:0; } to { transform:translateX(0); opacity:1; } }
+#dnata-today .dt-ed {
+  position:absolute; left:10px; top:10px; bottom:10px; right:calc(min(760px, 94vw) + 8px);
+  z-index:55; background:var(--gray-950); border-radius:var(--radius-2xl); box-shadow:var(--shadow-2xl);
+  display:flex; flex-direction:column; overflow:hidden; animation:dtEdIn .2s var(--ease-out);
+}
+#dnata-today .dt-ed-head { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:16px 20px 14px; border-bottom:1px solid rgba(255,255,255,.08); flex-shrink:0; }
+#dnata-today .dt-ed-head .dt-micro { color:var(--gray-400); }
+#dnata-today .dt-ed-toprow { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+#dnata-today .dt-ed-title { display:flex; align-items:baseline; gap:10px; margin-top:4px; flex-wrap:wrap; }
+#dnata-today .dt-ed-place { font-size:18px; font-weight:600; color:#fff; }
+#dnata-today .dt-ed-time { font-size:13px; color:var(--gray-400); }
+#dnata-today .dt-ed-sync { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); color:var(--gray-100); font-size:11px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; border-radius:var(--radius-full); padding:4px 11px; }
+#dnata-today .dt-ed-sync .dt-dot { width:6px; height:6px; border-radius:50%; background:var(--error-500); }
+#dnata-today .dt-ed-tools { display:flex; align-items:center; gap:8px; flex-shrink:0; margin-top:4px; }
+#dnata-today .dt-ed .dt-iconbtn { width:30px; height:30px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); color:var(--gray-200); border-radius:var(--radius-md); }
+#dnata-today .dt-ed .dt-iconbtn:hover { background:rgba(255,255,255,.14); color:#fff; }
+#dnata-today .dt-ed .dt-iconbtn:disabled { opacity:.4; cursor:default; }
+#dnata-today .dt-ed-tools .dt-divider-v { background:rgba(255,255,255,.14); }
+#dnata-today .dt-ed-count { font-size:13px; color:var(--gray-300); font-weight:500; min-width:100px; text-align:center; }
+#dnata-today .dt-ed-body { flex:1; min-height:0; overflow-y:auto; display:flex; gap:16px; padding:16px 20px 24px; align-items:flex-start; }
+#dnata-today .dt-ed-media { flex:1.5; min-width:0; display:flex; flex-direction:column; gap:14px; }
+#dnata-today .dt-ed-side { width:320px; flex-shrink:0; display:flex; flex-direction:column; gap:16px; background:#fff; border-radius:var(--radius-xl); padding:16px; }
+
+/* player */
+#dnata-today .dt-ed-player { position:relative; aspect-ratio:16/9; border-radius:var(--radius-xl); overflow:hidden; background:var(--gray-900); background-size:cover; background-position:center; }
+#dnata-today .dt-ed-speed { position:absolute; left:16px; top:14px; background:rgba(16,24,40,.75); color:#fff; border-radius:var(--radius-md); padding:8px 13px; text-align:center; }
+#dnata-today .dt-ed-speed strong { display:block; font-size:22px; line-height:24px; font-weight:600; }
+#dnata-today .dt-ed-speed span { font-size:11px; color:rgba(255,255,255,.75); }
+#dnata-today .dt-ed-controls { position:absolute; left:0; right:0; bottom:0; padding:10px 14px 12px; background:linear-gradient(transparent, rgba(16,24,40,.85)); }
+#dnata-today .dt-ed-progress { height:4px; border-radius:4px; background:rgba(255,255,255,.28); margin-bottom:10px; }
+#dnata-today .dt-ed-progress span { display:block; height:100%; width:32%; border-radius:4px; background:#fff; }
+#dnata-today .dt-ed-ctlrow { display:flex; align-items:center; gap:14px; color:#fff; font-size:13px; font-weight:500; }
+#dnata-today .dt-ed-ctlrow .spacer { flex:1; }
+#dnata-today .dt-ed-iconbtn { border:none; background:transparent; color:#fff; cursor:pointer; padding:4px; display:flex; border-radius:var(--radius-sm); }
+#dnata-today .dt-ed-iconbtn:hover { background:rgba(255,255,255,.16); }
+
+/* synced camera placeholders */
+#dnata-today .dt-ed-cams { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+#dnata-today .dt-ed-cam { background:var(--gray-800); border-radius:var(--radius-lg); padding:12px 14px 14px; }
+#dnata-today .dt-ed-cam-head { display:flex; justify-content:space-between; align-items:center; font-size:11px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--gray-300); margin-bottom:12px; }
+#dnata-today .dt-ed-cam-sync { display:inline-flex; align-items:center; gap:5px; }
+#dnata-today .dt-ed-cam-sync .dt-dot { width:6px; height:6px; border-radius:50%; background:var(--error-500); }
+#dnata-today .dt-ed-cam-icon { display:flex; justify-content:center; color:var(--gray-400); padding:8px 0 18px; }
+#dnata-today .dt-ed-cam-bar { height:4px; border-radius:4px; background:rgba(255,255,255,.2); }
+#dnata-today .dt-ed-cam-bar span { display:block; height:100%; width:28%; background:#fff; border-radius:4px; }
+
+/* telemetry timeline */
+#dnata-today .dt-ed-telemetry { background:var(--gray-900); border-radius:var(--radius-xl); padding:16px; color:#fff; }
+#dnata-today .dt-ed-tel-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+#dnata-today .dt-ed-tel-title { display:flex; align-items:flex-start; gap:10px; font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; }
+#dnata-today .dt-ed-tel-title svg { flex-shrink:0; margin-top:1px; }
+#dnata-today .dt-ed-tel-sub { display:block; font-size:11px; color:var(--gray-400); font-weight:400; text-transform:none; letter-spacing:0; margin-top:3px; }
+#dnata-today .dt-ed-chips { display:inline-flex; background:rgba(255,255,255,.08); border-radius:var(--radius-full); padding:3px; gap:2px; flex-shrink:0; }
+#dnata-today .dt-ed-chips button { border:none; background:transparent; color:var(--gray-300); font-size:12px; font-weight:600; padding:4px 12px; border-radius:var(--radius-full); cursor:pointer; }
+#dnata-today .dt-ed-chips button.on { background:#fff; color:var(--gray-900); }
+#dnata-today .dt-ed-bars { position:relative; display:flex; align-items:flex-end; gap:6px; height:120px; margin-bottom:14px; }
+#dnata-today .dt-ed-bar { flex:1; border-radius:4px 4px 0 0; background:var(--primary-200); }
+#dnata-today .dt-ed-bar.event { background:var(--error-500); }
+#dnata-today .dt-ed-playhead { position:absolute; top:-6px; bottom:0; width:2px; background:#fff; border-radius:2px; }
+#dnata-today .dt-ed-map { height:120px; border-radius:var(--radius-md); background:var(--gray-800); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; color:var(--gray-300); font-size:13px; font-weight:500; margin-bottom:14px; }
+#dnata-today .dt-ed-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; border-top:1px solid rgba(255,255,255,.1); padding-top:12px; }
+#dnata-today .dt-ed-stat strong { display:block; font-size:17px; font-weight:600; color:#fff; }
+#dnata-today .dt-ed-stat span { font-size:10px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--gray-400); }
+
+/* sidebar */
+#dnata-today .dt-ed-ai { background:var(--primary-50); border:1px solid var(--primary-100); border-radius:var(--radius-xl); padding:14px 16px; }
+#dnata-today .dt-ed-ai .dt-micro { color:var(--primary-700); display:flex; align-items:center; gap:6px; margin-bottom:10px; }
+#dnata-today .dt-ed-ai ul { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+#dnata-today .dt-ed-ai li { position:relative; padding-left:14px; font-size:13px; line-height:19px; color:var(--gray-700); }
+#dnata-today .dt-ed-ai li::before { content:""; position:absolute; left:2px; top:8px; width:4px; height:4px; border-radius:50%; background:var(--primary-600); }
+#dnata-today .dt-ed-sec { border-top:1px solid var(--gray-200); padding-top:12px; }
+#dnata-today .dt-ed-sec > .dt-micro { display:block; margin-bottom:4px; }
+#dnata-today .dt-ed-kv { display:flex; justify-content:space-between; gap:14px; padding:7px 0; border-bottom:1px solid var(--gray-100); font-size:13px; }
+#dnata-today .dt-ed-kv:last-child { border-bottom:none; }
+#dnata-today .dt-ed-kv .k { color:var(--gray-500); }
+#dnata-today .dt-ed-kv .v { color:var(--gray-800); font-weight:600; text-align:right; }
+
+/* type-aware evidence drawer (Step 4) */
+#dnata-today .dt-ed-player { display:flex; align-items:center; justify-content:center; }
+#dnata-today .dt-ed-darkinner { display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--gray-400); font-size:12px; font-weight:600; }
+#dnata-today .dt-ed-placeholder { aspect-ratio:16/9; border-radius:var(--radius-xl); background:var(--gray-800); border:1px solid rgba(255,255,255,.08); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:var(--gray-400); font-size:13px; font-weight:500; }
+#dnata-today .dt-ed-camtag { position:absolute; left:12px; top:12px; background:rgba(16,24,40,.78); color:#fff; font-size:11px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; padding:3px 10px; border-radius:var(--radius-full); }
+#dnata-today .dt-ed-fcams { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+#dnata-today .dt-ed-fcams .dt-ed-player, #dnata-today .dt-ed-fcams .dt-ed-placeholder { aspect-ratio:16/8; }
+
+/* real video element (native controls own playback) */
+#dnata-today .dt-ed-player.is-realvideo { display:block; }
+#dnata-today .dt-ed-video { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#000; }
+
+/* image evidence — natural aspect ratio, never cropped */
+#dnata-today .dt-ed-imagewrap { margin:0; border-radius:var(--radius-xl); overflow:hidden; background:var(--gray-900); }
+#dnata-today .dt-ed-image { display:block; width:100%; height:auto; }
+#dnata-today .dt-ed-imagecap { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:12px; color:var(--gray-300); padding:10px 12px; border-top:1px solid rgba(255,255,255,.06); }
+#dnata-today .dt-ed-imagecap strong { color:#fff; font-weight:600; }
+#dnata-today .dt-ed-imagesrc { font-size:11px; color:var(--gray-400); }
+
+/* frame-evidence strip beneath the player */
+#dnata-today .dt-ed-frames { display:flex; gap:10px; overflow-x:auto; padding:2px 2px 6px; }
+#dnata-today .dt-ed-frames::-webkit-scrollbar { height:8px; }
+#dnata-today .dt-ed-frames::-webkit-scrollbar-thumb { background:var(--gray-700); border:2px solid var(--gray-950); }
+#dnata-today .dt-ed-frame { flex:0 0 auto; width:124px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); border-radius:var(--radius-md); padding:4px 4px 6px; cursor:pointer; text-align:left; display:flex; flex-direction:column; gap:4px; }
+#dnata-today .dt-ed-frame:hover { border-color:rgba(255,255,255,.34); }
+#dnata-today .dt-ed-frame.is-selected { border-color:var(--primary-500); box-shadow:0 0 0 1px var(--primary-500); }
+#dnata-today .dt-ed-frame-thumb { display:block; aspect-ratio:16/9; border-radius:4px; background-color:var(--gray-800); background-size:cover; background-position:center; }
+#dnata-today .dt-ed-frame-id { font-size:10.5px; font-weight:600; color:var(--gray-200); letter-spacing:.02em; padding:0 2px; }
+#dnata-today .dt-ed-frame.is-crash .dt-ed-frame-id { color:var(--error-500); }
+#dnata-today .dt-ed-frame-label { font-size:10.5px; color:var(--gray-400); line-height:13px; padding:0 2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#dnata-today .dt-ed-mapview { border-radius:var(--radius-xl); overflow:hidden; background:var(--gray-800); }
+#dnata-today .dt-ed-mapview svg { display:block; }
+#dnata-today .dt-ed-mapcap { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--gray-400); padding:8px 12px; border-top:1px solid rgba(255,255,255,.06); }
+#dnata-today .dt-ed-timeline { cursor:pointer; }
+#dnata-today .dt-ed-markers { display:flex; gap:12px; flex-wrap:wrap; margin:0 0 12px; font-size:11px; color:var(--gray-400); }
+#dnata-today .dt-ed-markers .mk { display:inline-flex; align-items:center; gap:5px; }
+#dnata-today .dt-ed-markers .mk i { width:8px; height:8px; border-radius:2px; }
+#dnata-today .dt-ed-ai-text { margin:0 0 8px; font-size:13px; line-height:19px; color:var(--gray-700); }
+#dnata-today .dt-ed-ai-note { font-size:11px; color:var(--gray-500); }
+#dnata-today .dt-ed-lvl { font-weight:600; }
+#dnata-today .dt-ed-lvl.lvl-high { color:var(--error-700); }
+#dnata-today .dt-ed-lvl.lvl-review { color:var(--warning-700); }
+#dnata-today .dt-ed-lvl.lvl-fp { color:var(--gray-600); }
+
+/* dark scrollbar inside the drawer */
+#dnata-today .dt-ed-body::-webkit-scrollbar-thumb { background:var(--gray-700); border:2px solid var(--gray-950); }
+
+/* drawer responsive: stack columns when the strip beside the case panel gets narrow,
+   and take the full width once side-by-side no longer fits */
+@media (max-width:1540px) {
+  #dnata-today .dt-ed-body { flex-direction:column; }
+  #dnata-today .dt-ed-side { width:100%; }
+}
+@media (max-width:1180px) {
+  #dnata-today .dt-ed { right:10px; }
+}
+
+/* responsive */
+@media (max-width:720px) {
+  #dnata-today .dt-ed-body { flex-direction:column; }
+  #dnata-today .dt-ed-side { width:100%; }
+  #dnata-today .dt-clips { grid-template-columns:repeat(2,1fr); }
+  #dnata-today .dt-greet-row { flex-direction:column; }
+  #dnata-today .dt-card-meta { flex-wrap:wrap; }
+  #dnata-today .dt-graphs { grid-template-columns:1fr; }
+  #dnata-today .dt-form-grid { grid-template-columns:1fr; }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Cases and Investigations",
+  "supportEmail": "aryandesai@zenduit.com",
+  "version": "1.1.7",
+  "items": [
+    {
+      "url": "https://aryandesai-ux.github.io/dnata-cases-investigations/today.html",
+      "path": "",
+      "menuName": {
+        "en": "dnata",
+        "fr": "dnata",
+        "es": "dnata"
+      },
+      "icon": "https://aryandesai-ux.github.io/dnata-cases-investigations/images/icon.svg"
+    }
+  ],
+  "isSigned": false
+}

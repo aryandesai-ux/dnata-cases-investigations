@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>dnata</title>
+  <link rel="icon" type="image/svg+xml" href="images/icon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body style="margin:0;height:100vh;overflow:hidden;background:#fff;">
+
+  <!-- Add-in root. Everything renders inside here, scoped by #dnata-today. -->
+  <div id="dnata-today"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    /* ---------------------------------------------------------------------
+       Bootstrap. Runs in two modes:
+       1) Inside MyGeotab  -> geotab.addin.dnataToday.initialize(api,…) mounts
+          the add-in with the live API (real user name + device count).
+       2) Standalone preview (opened directly / in an iframe) -> mounts with
+          demo data after a short fallback delay.
+       --------------------------------------------------------------------- */
+    (function () {
+      'use strict';
+      var mounted = false;
+      function boot(api) {
+        // Never mount twice, and never before app.js/data.js have run.
+        if (mounted || !window.DnataToday || !document.getElementById('dnata-today')) return;
+        mounted = true;
+        window.DnataToday.mount(document.getElementById('dnata-today'), api || null);
+      }
+
+      // MyGeotab injection model: register the add-in lifecycle hooks.
+      if (typeof geotab !== 'undefined') {
+        geotab.addin = geotab.addin || {};
+        geotab.addin.dnataToday = function () {
+          return {
+            initialize: function (api, state, callback) { boot(api); if (callback) callback(); },
+            focus: function (api /*, state */) { /* view re-shown */ },
+            blur: function () { /* view hidden */ }
+          };
+        };
+      }
+
+      // Mount logic. MyGeotab injects this page into its already-loaded
+      // single-page app, so DOMContentLoaded has usually fired BEFORE these
+      // scripts run and its listener would never trigger. Run immediately
+      // when the document is already parsed; otherwise wait for the event.
+      function start() {
+        if (typeof geotab === 'undefined') {
+          // Pure standalone preview — no MyGeotab present, mount immediately.
+          boot(null);
+        } else {
+          // Inside MyGeotab: prefer the live API via initialize(); fall back
+          // to demo data only if it never arrives.
+          setTimeout(function () { if (!mounted) boot(null); }, 2500);
+        }
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start);
+      } else {
+        start();
+      }
+    })();
+  </script>
+</body>
+</html>
