@@ -6,6 +6,39 @@
 window.DnataToday = (function () {
   'use strict';
 
+  /* ── Asset base resolver ──────────────────────────────────────────────────
+     Inside MyGeotab the add-in is injected into MyGeotab's own page, so a
+     relative asset path (media/…, images/…) would resolve against MyGeotab's
+     domain, not where the add-in is hosted. We derive the add-in's real base
+     URL from where app.js / data.js / styles.css were actually loaded, and
+     prefix every runtime asset with it. Standalone (served from its own
+     folder) this resolves to that folder, so behaviour is unchanged. */
+  var ASSET_BASE = (function () {
+    function dirOf(u) { return u ? u.replace(/[^\/]*(\?.*)?$/, '') : ''; }
+    var cs = document.currentScript;
+    if (cs && cs.src && /\/app\.js(\?|$)/.test(cs.src)) return dirOf(cs.src);
+    var i, s = document.getElementsByTagName('script');
+    for (i = s.length - 1; i >= 0; i--) { if (s[i].src && /\/(app|data)\.js(\?|$)/.test(s[i].src)) return dirOf(s[i].src); }
+    var l = document.getElementsByTagName('link');
+    for (i = 0; i < l.length; i++) { if (l[i].href && /styles\.css(\?|$)/.test(l[i].href)) return dirOf(l[i].href); }
+    return '';
+  })();
+  function assetUrl(p) {
+    if (!p) return p;
+    if (/^(https?:)?\/\//.test(p) || p.charAt(0) === '/' || p.indexOf('data:') === 0) return p;
+    return ASSET_BASE + p;
+  }
+  // Rewrite every asset path a case references to an absolute URL once, up front.
+  function absolutizeAssets(c) {
+    (c.evidence || []).forEach(function (e) {
+      if (e.src) e.src = assetUrl(e.src);
+      if (e.poster) e.poster = assetUrl(e.poster);
+      (e.frameEvidence || []).forEach(function (f) { if (f.src) f.src = assetUrl(f.src); });
+    });
+    (c.frameEvidence || []).forEach(function (f) { if (f.src) f.src = assetUrl(f.src); });
+    if (c.subject && c.subject.avatar) c.subject.avatar = assetUrl(c.subject.avatar);
+  }
+
   /* ── Icon registry (Lucide-style, 2px stroke) ─────────────────────────── */
   var P = {
     sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
@@ -122,6 +155,7 @@ window.DnataToday = (function () {
       copy.pinned = !!c.pinned; copy.saved = false; copy.feedback = null;
       copy.deferred = false; copy.dismissed = false; copy.resolved = false;
       copy.notes = []; copy.extra = []; copy.fnol = null; copy.audit = []; copy.reportShares = [];
+      absolutizeAssets(copy); // make every media/image path absolute for the current host
       return copy;
     });
     var users = JSON.parse(JSON.stringify(D.users));
@@ -138,7 +172,7 @@ window.DnataToday = (function () {
   function navHtml() {
     var nav = '<div class="dt-nav">' +
       // Brand is the official dnata wordmark (the logo IS the title).
-      '<span class="dt-brand"><img class="dt-brand-logo" src="images/dnata-logo.svg" alt="dnata"></span>' +
+      '<span class="dt-brand"><img class="dt-brand-logo" src="' + assetUrl('images/dnata-logo.svg') + '" alt="dnata"></span>' +
       '<span class="dt-divider-v"></span>';
     NAV.forEach(function (n) {
       nav += '<button class="dt-nav-btn' + (state.view === n.id ? ' is-active' : '') + '" data-act="nav:' + n.id + '">' +
@@ -435,7 +469,7 @@ window.DnataToday = (function () {
       var isImg = evIsImage(e);
       // Real video without an authored poster keeps the neutral dark tile —
       // the simulated-dashcam still would misrepresent it as camera footage.
-      var thumb = e.poster || (isImg ? e.src : (evHasRealVideo(e) ? null : 'images/dashcam-frame.png'));
+      var thumb = e.poster || (isImg ? e.src : (evHasRealVideo(e) ? null : assetUrl('images/dashcam-frame.png')));
       var durLabel = isImg ? '' : evDurationLabel(e);
       return '<button class="dt-clip" data-act="clip:' + c.id + ':' + i + '">' +
         '<span class="dt-clip-thumb"' + (thumb ? ' style="background-image:url(' + esc(thumb) + ')"' : '') + '><span class="dt-clip-play">' + ic(isImg ? 'image' : 'play', 14) + '</span>' +
@@ -1289,7 +1323,7 @@ window.DnataToday = (function () {
     }
     if (m.step === 2) {
       var isCam = m.method === 'camera';
-      var video = '<div class="dt-call-video"' + (isCam ? ' style="background-image:url(images/dashcam-frame.png)"' : '') + '>' +
+      var video = '<div class="dt-call-video"' + (isCam ? ' style="background-image:url(' + assetUrl('images/dashcam-frame.png') + ')"' : '') + '>' +
         '<span class="dt-rec"><span class="dt-dot"></span>REC</span>' +
         '<span class="dt-call-timer" id="dt-call-timer">' + fmtDur(m.sec) + '</span>' +
         (isCam ? '' : '<span style="color:#fff;display:flex;flex-direction:column;align-items:center;gap:8px">' + ic('phone', 28) + '<span style="font-size:13px;font-weight:600">' + esc(a.driver.phone) + '</span></span>') +
@@ -2171,7 +2205,7 @@ window.DnataToday = (function () {
       return '<figure class="dt-ed-imagewrap">' + player +
         '<figcaption class="dt-ed-imagecap">' + edMediaCaption(clip) + '</figcaption></figure>';
     }
-    var bg = opts.dark ? '' : ' style="background-image:url(images/dashcam-frame.png)"';
+    var bg = opts.dark ? '' : ' style="background-image:url(' + assetUrl('images/dashcam-frame.png') + ')"';
     var inner = opts.dark
       ? '<span class="dt-ed-darkinner">' + ic('user', 26) + '<span>' + esc(opts.tag || 'Camera') + ' camera</span></span>' : '';
     var dur = evDurationSec(clip);
